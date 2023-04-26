@@ -37,7 +37,7 @@ router.get('/getMarketNews', fifteenMinutesCache, asyncHandler(finnhubController
 router.get('/getStockSymbols', fifteenMinutesCache, asyncHandler(finnhubController.getStockSymbols));
 router.get('/getCompanyProfile', fifteenMinutesCache, asyncHandler(finnhubController.getCompanyProfile));
 
-router.get('/getIntraDayPrices', fifteenMinutesCache, asyncHandler(alphaVantageController.getIntraDayPrices));
+router.get('/getIntraDayPrices', oneHourCache, asyncHandler(alphaVantageController.getIntraDayPrices));
 
 finnhubController.init();
 alpacaController.init();

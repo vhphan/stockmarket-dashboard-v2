@@ -517,3 +517,8 @@ export const getTodayDateString = function () {
     const yyyy = today.getFullYear();
     return `${yyyy}-${mm}-${dd}`;
 };
+
+// function to convert string like "2023-04-24 20:00:00" to number of seconds after epoch
+export const convertDateStringToEpoch = function (dateString) {
+    return new Date(dateString).getTime() / 1000;
+}
