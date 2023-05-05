@@ -7,14 +7,15 @@ import LWChart from './LWChart.vue';
 
 const props = defineProps({
     data: Array,
-    title: String
+    title: String,
+    color: String,
 })
 
 const chartOptions = ref({
 
 });
 const seriesOptions = ref({
-    color: 'rgb(45, 77, 205)',
+    color: props.color || 'rgb(45, 77, 205)',
     title: props.title,
 });
 const chartType = ref('line');
@@ -88,6 +89,6 @@ const changeColors = () => {
 <style scoped>
 .chart-container {
     /*height: calc(100% - 3.2em);*/
-    height: 500px;
+    height: 250px;
 }
 </style>

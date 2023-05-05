@@ -53,9 +53,21 @@ const getCompanyProfile = async (req, res) => {
     );
 };
 
+const getStockQuote = async (req, res) => {
+    const symbol = req.query.symbol;
+    const finnhubClient = global.__finnhubClient;
+    const data = await promisify(finnhubClient.quote.bind(finnhubClient))(symbol);
+    res.json({
+            data: {...data, symbol},
+            success: true,
+        }
+    );
+}
+
 module.exports = {
     init,
     getMarketNews,
     getStockSymbols,
     getCompanyProfile,
+    getStockQuote,
 }

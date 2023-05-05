@@ -4,11 +4,12 @@ export const checkApi = () => {
     return api().get(`/`);
 };
 
-const apiRoutes = {
+export const apiRoutes = {
     getIntraDayPrices: '/getIntraDayPrices',
+    getStockQuote: '/stockQuote',
 
 }
 
-export const apiGet = (routeName, params) => {
-    return api().get(apiRoutes[routeName], params);
+export const apiGet = (routePath, params) => {
+    return api().get(routePath, params);
 }
