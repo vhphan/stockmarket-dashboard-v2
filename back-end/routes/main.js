@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const mainController = require('#src/controllers/main');
@@ -32,6 +31,7 @@ router.get('/getAssetInfo', fifteenMinutesCache, asyncHandler(alpacaController.g
 router.get('/getActiveAssets', oneDayCache, asyncHandler(alpacaController.getActiveAssets));
 
 router.get('/getTopGainers', fifteenMinutesCache, asyncHandler(scraperController.getTopGainers));
+router.get('/getTopLosers', fifteenMinutesCache, asyncHandler(scraperController.getTopLosers));
 
 router.get('/getMarketNews', fifteenMinutesCache, asyncHandler(finnhubController.getMarketNews));
 router.get('/getStockSymbols', fifteenMinutesCache, asyncHandler(finnhubController.getStockSymbols));

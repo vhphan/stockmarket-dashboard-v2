@@ -30,10 +30,22 @@ const getTopGainers = async (req, res) => {
     res.json({
         data,
         success: true,
+        time: new Date(),
     });
 };
+
+const getTopLosers = async (req, res) => {
+    // scrape yahoo finance for top losers
+    const data = await scraperYahooFinance('https://finance.yahoo.com/losers');
+    res.json({
+        data,
+        success: true,
+        time: new Date(),
+    });
+}
 
 module.exports = {
     scraperYahooFinance,
     getTopGainers,
+    getTopLosers,
 }

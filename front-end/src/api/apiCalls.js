@@ -7,6 +7,8 @@ export const checkApi = () => {
 export const apiRoutes = {
     getIntraDayPrices: '/getIntraDayPrices',
     getStockQuote: '/stockQuote',
+    getTopGainers: '/getTopGainers',
+    getTopLosers: '/getTopLosers',
 
 }
 

@@ -6,6 +6,8 @@ export const useMainStore = defineStore({
     state: () => ({
         indexSymbols: ['SPY', 'QQQ', 'IWM'],
         indexIntraDayData: useLocalStorage('indexIntraDayData', {}),
+        topGainers: useLocalStorage('topGainers', []),
+        topLosers: useLocalStorage('topLosers', []),
 
     }),
     actions: {
@@ -20,11 +22,24 @@ export const useMainStore = defineStore({
                 time: key,
                 ...timeSeries[key],
             }));
-
         },
         saveIntraDayDataArray(dataArray) {
             dataArray.forEach(data => this.saveIntraDayData(data.value));
+        },
+        saveTopGainers(data) {
+            if (!data.success) {
+                return;
+            }
+            this.topGainers.value = data.data;
+        },
+
+        saveApiDataToState(data, stateName) {
+            if (!data.success) {
+                return;
+            }
+            this[stateName] = data.data;
         }
+
 
     },
     getters: {

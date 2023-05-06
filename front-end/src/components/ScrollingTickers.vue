@@ -1,7 +1,8 @@
 <script setup>
 import {apiGet, apiRoutes} from "@/api/apiCalls.js";
 import {computed, onMounted} from "vue";
-import {useApiArray} from "../../composables/api.js";
+import {useApiArray} from "@/composables/api.js";
+import TopMovers from "@/components/TopMovers.vue";
 
 const props = defineProps({
     symbols: {

@@ -7,6 +7,7 @@ import {computed} from "vue";
 import SimpleChart from "@/components/SimpleChart.vue";
 import {triggerNegative} from "@/utils/notifications.js";
 import ScrollingTickers from "@/components/ScrollingTickers.vue";
+import TopMovers from "@/components/TopMovers.vue";
 
 const mainStore = useMainStore();
 const {indexSymbols, indexIntraDayData} = storeToRefs(mainStore);
@@ -88,14 +89,18 @@ const chartColors = [
         </div>
 
     </div>
-    <q-btn
-        :loading="isLoading"
-        :disabled="isLoading"
-        @click="execute"
-        color="primary"
-    >
-        Execute
-    </q-btn>
+<!--    <q-btn-->
+<!--        :loading="isLoading"-->
+<!--        :disabled="isLoading"-->
+<!--        @click="execute"-->
+<!--        color="primary"-->
+<!--    >-->
+<!--        Execute-->
+<!--    </q-btn>-->
+    <div>
+        <top-movers />
+    </div>
+
 </template>
 
 

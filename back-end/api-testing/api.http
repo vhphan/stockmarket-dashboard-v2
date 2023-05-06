@@ -13,3 +13,8 @@ Accept: application/json
 GET http://localhost:3005/api/v1/getCompanyProfile?symbol=AAPL
 Accept: application/json
 
+
+###
+GET http://localhost:3005/api/v1/getTopLosers
+Accept: application/json
+
