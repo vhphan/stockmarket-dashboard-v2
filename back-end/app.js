@@ -22,6 +22,12 @@ const server = app.listen(port, function () {
     console.log(process.env.NODE_ENV);
     console.log(process.platform);
     console.log(global.__appDir);
+
 });
+
+setTimeout(() => {
+    console.log(global.__calendar);
+    console.log(global.__clock);
+}, 10_000);
 
 

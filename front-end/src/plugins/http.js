@@ -57,9 +57,21 @@ class MyFetch {
 
     }
 
-    get(url, params={}) {
+    get(url, params = {}) {
 
-        const query = new URLSearchParams(params).toString();
+        const searchParams = new URLSearchParams();
+        for (const [key, value] of Object.entries(params)) {
+            if (Array.isArray(value)) {
+                value.forEach((v) => {
+                        searchParams.append(key + '[]', v);
+                    }
+                );
+                continue;
+            }
+            searchParams.append(key, value);
+        }
+
+        const query = searchParams.toString();
 
         let fetcher = this.myUseFetch(url + '?' + query);
 

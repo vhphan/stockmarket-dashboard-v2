@@ -3,14 +3,41 @@ const {logger} = require("#src/middlewares/logger");
 const moment = require("moment");
 const _ = require("lodash");
 const {schedule} = require("node-cron");
+const fs = require("fs");
+const {saveJsonAndSend} = require("#src/controllers/utils");
 
 const updateAlpacaData = async () => {
     try {
         const alpaca = global.__alpaca;
         logger.info('updating alpaca data');
         global.__clock = await alpaca.getClock();
-        global.__calendar = !global.__isDev ? await alpaca.getCalendar() : require('../data/calendar.json');
+        // check if calendar.json exists
+        const calendarJsonFile = require('path').resolve(__appDir, 'data/calendar.json');
+        const fs = require('fs');
+        // if  (fs.existsSync(calendarJsonFile)) {
+        //     // check age of file
+        //     const stats = fs.statSync(calendarJsonFile);
+        //     const mtime = new Date(stats.mtime);
+        //     const now = new Date();
+        //     const diff = moment(now).diff(moment(mtime), 'days');
+        //     if (diff > 0) {
+        //         // delete file
+        //         logger.info('calendar.json is older than 1 day, deleting')
+        //         fs.unlinkSync(calendarJsonFile);
+        //     }
+        // }
+
+
+        if (!fs.existsSync(calendarJsonFile)) {
+            logger.info('calendar.json not found, fetching from alpaca');
+            global.__calendar = await alpaca.getCalendar({
+                start: moment().subtract(20, 'year').format('YYYY-MM-DD'),
+            });
+            fs.writeFileSync(calendarJsonFile, JSON.stringify(global.__calendar));
+        }
+        global.__calendar = require(calendarJsonFile);
         logger.info('alpaca data updated');
+
     } catch (e) {
         logger.error(e.message);
     }
@@ -21,9 +48,8 @@ const init = async function () {
 
         if (!global.__alpacaCron) {
             // update alpaca data on startup
-            logger.info('initializing alpaca cron');
 
-            await updateAlpacaData();
+            logger.info('initializing alpaca cron');
 
             global.__alpacaCron = schedule('*/10 * * * *', () => {
                     updateAlpacaData().then(r => {
@@ -44,6 +70,10 @@ const init = async function () {
                 secretKey: API_SECRET,
             });
             logger.info('Successfully initialized alpaca api');
+        }
+
+        if (!global.__clock || !global.__calendar){
+            await updateAlpacaData();
         }
 
     } catch (e) {
@@ -145,6 +175,7 @@ const getBars = async (req, res) => {
         numberOfDays: numberOfDays || 10,
         timeframe: timeframe || '1Day',
     });
+
     res.json({
         data,
         success: true,
@@ -188,29 +219,22 @@ const getActiveAssets = async (req, res) => {
 };
 
 const getBarsMultipleSymbols = async (req, res) => {
-    const {symbols, numberOfDays, timeframe} = req.query;
+    const {symbols, timeframe} = req.query;
+    let numberOfDays = req.query.numberOfDays || 10;
+    numberOfDays = parseInt(numberOfDays);
     const data = await getBarsMultipleSymbolsFromAlpaca({
         symbols,
         numberOfDays,
         timeframe,
     });
-    res.json({
+    const jsonResults = {
         data,
         success: true,
-    });
+    };
+    saveJsonAndSend(req, res, jsonResults);
 };
 
-const getBarsMultipleSymbolsDaily = async (req, res) => {
-    const {symbols, numberOfDays} = req.query;
-    const data = await getBarsMultipleSymbolsFromAlpaca({
-        symbols,
-        numberOfDays,
-    });
-    res.json({
-        data,
-        success: true,
-    });
-};
+
 
 
 module.exports = {
@@ -225,6 +249,5 @@ module.exports = {
 
     getAssetInfo,
     getActiveAssets,
-    getBarsMultipleSymbolsDaily,
 
 };

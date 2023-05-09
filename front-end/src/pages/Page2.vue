@@ -1,12 +1,17 @@
-<template>
-  <div>Page2</div>
-</template>
 
-<script>
-export default {
-  name: "Page2"
-};
+<script setup>
+
+import SectorsChart from "@/components/SectorsChart.vue";
 </script>
+
+
+<template>
+
+    <div>Page2</div>
+
+    <sectors-chart/>
+
+</template>
 
 <style scoped>
 

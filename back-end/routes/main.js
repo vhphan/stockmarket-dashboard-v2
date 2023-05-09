@@ -19,14 +19,14 @@ const oneDayCache = apiCache.middleware('1 day', onlyStatus200);
 router.use(errorHandler);
 
 
-router.use(mainController.devModeStaticApi);
-
+if (process.env.NODE_ENV === 'development') {
+    router.use(mainController.devModeStaticApi);
+}
 router.get('/', mainController.index);
 
 router.get('/getBars', fifteenMinutesCache, asyncHandler(alpacaController.getBars));
 router.get('/getBarsMultipleSymbols', fifteenMinutesCache, asyncHandler(alpacaController.getBarsMultipleSymbols));
 router.get('/getMajorIndexes', fifteenMinutesCache, asyncHandler(alpacaController.getMajorIndexes));
-router.get('/getBarsMultipleSymbolsDaily', fifteenMinutesCache, asyncHandler(alpacaController.getBarsMultipleSymbolsDaily));
 router.get('/getAssetInfo', fifteenMinutesCache, asyncHandler(alpacaController.getAssetInfo));
 router.get('/getActiveAssets', oneDayCache, asyncHandler(alpacaController.getActiveAssets));
 
@@ -39,6 +39,7 @@ router.get('/getCompanyProfile', fifteenMinutesCache, asyncHandler(finnhubContro
 router.get('/stockQuote', fifteenMinutesCache, asyncHandler(finnhubController.getStockQuote));
 
 router.get('/getIntraDayPrices', oneHourCache, asyncHandler(alphaVantageController.getIntraDayPrices));
+router.get('/getBarsMultipleSymbols', oneHourCache, asyncHandler(alpacaController.getBarsMultipleSymbols));
 
 finnhubController.init();
 alpacaController.init();

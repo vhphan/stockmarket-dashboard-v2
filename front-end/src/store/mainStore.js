@@ -8,7 +8,7 @@ export const useMainStore = defineStore({
         indexIntraDayData: useLocalStorage('indexIntraDayData', {}),
         topGainers: useLocalStorage('topGainers', []),
         topLosers: useLocalStorage('topLosers', []),
-
+        sectorEtfPrices: useLocalStorage('sectorEtfPrices', {}),
     }),
     actions: {
         saveIntraDayData(data) {

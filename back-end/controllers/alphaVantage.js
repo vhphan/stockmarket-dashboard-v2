@@ -1,16 +1,8 @@
 const {writeFile} = require("fs");
+const {saveJsonAndSend} = require("#src/controllers/utils");
 const alpha = require('alphavantage')({ key: process.env.ALPHA_VANTAGE_API_KEY });
 
-function saveResultToJSON(req, jsonResult) {
-    // save result to file
-    const jsonFileName = req.url.replace('/', '').replace('?', '_').replaceAll('&', '_') + '.json';
-    const jsonFile = global.__appDir + '/data/' + jsonFileName;
-    writeFile(jsonFile, JSON.stringify(jsonResult, null, 2), (err) => {
-        if (err) throw err;
-    }, () => {
-        console.log(`Data written to file ${jsonFile}`);
-    });
-}
+
 
 const getIntraDayPrices = async (req, res) => {
     const symbol = req.query.symbol;
@@ -19,10 +11,20 @@ const getIntraDayPrices = async (req, res) => {
         data,
         success: true,
     };
-    saveResultToJSON(req, jsonResult);
-    res.json(jsonResult);
+    saveJsonAndSend(req, res, jsonResult);
+}
+
+const getDailyPrices = async (req, res) => {
+    const symbol = req.query.symbol;
+    const data = await alpha.data.daily_adjusted(symbol, 'compact', 'json');
+    const jsonResult = {
+        data,
+        success: true,
+    };
+    saveJsonAndSend(req, res, jsonResult);
 }
 
 module.exports = {
     getIntraDayPrices,
+    getDailyPrices,
 }
