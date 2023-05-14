@@ -9,6 +9,7 @@ export const useMainStore = defineStore({
         topGainers: useLocalStorage('topGainers', []),
         topLosers: useLocalStorage('topLosers', []),
         sectorEtfPrices: useLocalStorage('sectorEtfPrices', {}),
+        darkMode: useLocalStorage('darkMode', true),
     }),
     actions: {
         saveIntraDayData(data) {
@@ -43,6 +44,23 @@ export const useMainStore = defineStore({
 
     },
     getters: {
-
+        sectorEtfPriceChanges() {
+            const sectorEtfPriceChanges = {};
+            Object.keys(this.sectorEtfPrices).forEach(sector => {
+                const sectorEtfPrice = this.sectorEtfPrices[sector];
+                // sectorEtfPriceChanges will be the percentage change of value compared to the previous value
+                // the sectorEtfPrice object is sorted by time, so the first value is the latest value
+                // Each element of array is an array of [time, value]
+                sectorEtfPriceChanges[sector] = sectorEtfPrice.map((value, index, array) => {
+                        if (index === 0) {
+                            return [value[0], 0];
+                        }
+                        const previousValue = array[index - 1][1];
+                        return [value[0], (value[1] - previousValue) / previousValue];
+                    }
+                );
+            });
+            return sectorEtfPriceChanges;
+        }
     }
 });

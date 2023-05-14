@@ -129,3 +129,6 @@ dist
 .pnp.*
 
 *private.env.json
+
+data/
+
