@@ -41,6 +41,7 @@ router.get('/getStockQuote', fifteenMinutesCache, asyncHandler(finnhubController
 router.get('/getIntraDayPrices', oneHourCache, asyncHandler(alphaVantageController.getIntraDayPrices));
 router.get('/getBarsMultipleSymbols', oneHourCache, asyncHandler(alpacaController.getBarsMultipleSymbols));
 router.get('/getLatestQuotes', oneHourCache, asyncHandler(alpacaController.getLatestQuotes));
+router.get('/getNews', fifteenMinutesCache, asyncHandler(alpacaController.getNews));
 
 finnhubController.init();
 alpacaController.init();

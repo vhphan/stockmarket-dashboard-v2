@@ -245,11 +245,15 @@ const getLatestQuotes = async (req, res) => {
     });
 }
 
-
-
-
-
-
+const getNews = async (req, res) => {
+    const {symbols} = req.query;
+    const alpaca = global.__alpaca;
+    const data = symbols === undefined? (await alpaca.getNews({totalLimit: 20})) : (await alpaca.getNews({symbols}));
+    res.json({
+        data,
+        success: true,
+    });
+}
 
 module.exports = {
     init,
@@ -264,5 +268,6 @@ module.exports = {
     getAssetInfo,
     getActiveAssets,
     getLatestQuotes,
+    getNews,
 
 };
