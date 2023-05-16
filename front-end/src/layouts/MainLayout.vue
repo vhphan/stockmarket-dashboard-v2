@@ -1,6 +1,7 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {sidebarItems} from "@/router/sidebarItems.js";
+import {useRoute} from "vue-router";
 
 const drawer = ref(false);
 const miniState = ref(false);
@@ -16,6 +17,10 @@ const drawerClick = function (e) {
         e.stopPropagation();
     }
 };
+
+const route = useRoute();
+const routeName = computed(() => route.name);
+
 </script>
 
 
@@ -65,8 +70,8 @@ const drawerClick = function (e) {
                                 <q-icon :name="item.icon"/>
                             </q-item-section>
 
-                            <q-item-section>
-                                {{item.label}}
+                            <q-item-section :class="{active: item.routeName===routeName}">
+                                {{ item.label }}
                             </q-item-section>
                         </q-item>
 
@@ -104,12 +109,24 @@ const drawerClick = function (e) {
 .q-mini-drawer-hide {
     transition: all .3s ease-in-out;
 }
-.q-drawer--standard  {
+
+.q-drawer--standard {
     transition: all 1s ease-in-out;
 }
 
 .q-drawer--mini {
     transition: all 1s ease-in-out;
+}
+
+.active {
+    /*    double underline the text*/
+    text-decoration: underline;
+    text-decoration-style: double;
+    text-decoration-color: #37ffd4;
+    /*    make text bold */
+    font-weight: bold;
+    /*    make font bigger */
+    font-size: 1.5em;
 }
 
 </style>
