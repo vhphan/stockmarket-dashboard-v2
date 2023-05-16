@@ -60,6 +60,7 @@ const getStockQuote = async (req, res) => {
     res.json({
             data: {...data, symbol},
             success: true,
+
         }
     );
 }

@@ -64,6 +64,11 @@ const props = defineProps({
         type: String,
         default: 'dark',
     },
+    heightInPixels: {
+        type: Number,
+        default: 500,
+        required: false
+    },
 
 });
 
@@ -188,7 +193,7 @@ const computedTheme = computed(() => {
             :option="chartOption"
             :theme="computedTheme"
             :autoresize="true"
-            style="height: 300px;"
+            :style="`height: ${props.heightInPixels}px;`"
             :group="timeUnit"
     />
 </template>

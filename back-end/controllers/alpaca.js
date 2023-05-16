@@ -234,6 +234,20 @@ const getBarsMultipleSymbols = async (req, res) => {
     saveJsonAndSend(req, res, jsonResults);
 };
 
+const getLatestQuotes = async (req, res) => {
+    const {symbols} = req.query;
+    console.log(symbols);
+    const alpaca = global.__alpaca;
+    const data = await alpaca.getMultiQuotesV2(symbols);
+    res.json({
+        data,
+        success: true,
+    });
+}
+
+
+
+
 
 
 
@@ -249,5 +263,6 @@ module.exports = {
 
     getAssetInfo,
     getActiveAssets,
+    getLatestQuotes,
 
 };

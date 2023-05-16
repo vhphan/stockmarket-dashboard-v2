@@ -9,12 +9,11 @@ import {etfList} from "@/config/constants.js";
 import EChartLine from "@/components/EChartLine.vue";
 
 const mainStore = useMainStore();
-
 const symbols = Object.keys(etfList);
 
 const params = {
     symbols,
-    numberOfDays: 30,
+    numberOfDays: 120,
     timeFrame: '1Day',
 };
 
@@ -49,7 +48,7 @@ const chartDataArray = computed(() => {
         return {
             data: mainStore.sectorEtfPrices[symbol],
             type: 'line',
-            name: symbol,
+            name: `${symbol}(${etfList[symbol]})`,
         };
     });
 });
@@ -58,16 +57,19 @@ const sectorEtfPriceChangesArray = computed(() => {
     return symbols.map((symbol) => {
         const percentChangeArray = mainStore.sectorEtfPriceChanges[symbol];
         return {
-            name: symbol,
+            name: `${symbol}(${etfList[symbol]})`,
             type: 'line',
             data: percentChangeArray,
+            smooth: true,
         };
     });
 });
 
+
 onMounted(() => {
     execute();
 });
+
 
 </script>
 
@@ -76,6 +78,8 @@ onMounted(() => {
     <e-chart-line
             chart-title=""
             :data="sectorEtfPriceChangesArray"
+            :height-in-pixels="501"
+
     />
 </template>
 
