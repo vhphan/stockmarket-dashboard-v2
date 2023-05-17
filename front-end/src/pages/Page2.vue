@@ -3,6 +3,7 @@
 
 import SectorsChart from "@/components/SectorsChart.vue";
 import SectorsBarChart from "@/components/SectorsBarChart.vue";
+import MarketNews from "@/components/MarketNews.vue";
 </script>
 
 
@@ -16,7 +17,9 @@ import SectorsBarChart from "@/components/SectorsBarChart.vue";
             <sectors-bar-chart />
         </div>
     </div>
-
+    <div>
+        <market-news />
+    </div>
 
 </template>
 

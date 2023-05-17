@@ -11,6 +11,7 @@ export const apiRoutes = {
     getTopGainers: '/getTopGainers',
     getTopLosers: '/getTopLosers',
     getBarsMultipleSymbols: '/getBarsMultipleSymbols',
+    getNews: '/getNews',
 
 }
 
