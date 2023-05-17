@@ -65,6 +65,33 @@ const sectorEtfPriceChangesArray = computed(() => {
     });
 });
 
+const additionalChartOptions = {
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross'
+        },
+        formatter: (params) => {
+            return `${(params[0].value[1] * 100).toFixed(2)} %`;
+        },
+    },
+    yAxis: {
+        splitLine: {show: false},
+        type: 'value',
+        scale: true,
+        name: '',
+        // nameLocation: 'middle',
+        axisLabel: {
+            inside: false,
+            formatter: (value) => {
+               return `${(value * 100).toFixed(2)} %`;
+            }
+        },
+    },
+
+
+
+}
 
 onMounted(() => {
     execute();
@@ -79,6 +106,7 @@ onMounted(() => {
             chart-title=""
             :data="sectorEtfPriceChangesArray"
             :height-in-pixels="501"
+            :add-option="additionalChartOptions"
 
     />
 </template>

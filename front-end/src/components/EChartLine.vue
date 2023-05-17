@@ -110,7 +110,7 @@ const getOption = function (chartTitle, dataArray) {
             },
             formatter: (params) => {
                 //Math.round(kpiValue * 100) / 100
-                return `${Math.round(params[0].value[1] * 100) / 100}`;
+                return `${(params[0].value[1]).toFixed(2)}`;
             },
         },
         // toolbox: getToolBox(chartRef, kpiColumn, getPopUpOption),

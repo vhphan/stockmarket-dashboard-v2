@@ -82,6 +82,11 @@ const getOption = function (seriesData, xAxisData, chartTitle) {
             trigger: 'axis',
             axisPointer: {
                 type: 'shadow'
+            },
+            formatter: function (params) {
+                const value = params[0].value;
+                const name = params[0].name;
+                return `${name}: ${value.toFixed(2)}%`;
             }
         },
         grid: {

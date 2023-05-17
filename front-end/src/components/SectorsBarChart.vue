@@ -27,7 +27,7 @@ const {
 
     symbols.forEach((symbol, index) => {
         const data = dataArray[index].value.data;
-        const pcChangeTillNow = 100 * (data.c - data.o) / data.o;
+        const pcChangeTillNow = (100 * (data.c - data.o) / data.o);
         quoteData.value = [
             ...quoteData.value,
             {
@@ -41,7 +41,6 @@ const {
 const executed = ref(false);
 onMounted(() => {
     execute().then(() => {
-        console.log('executed');
         executed.value = true;
     })
 });
