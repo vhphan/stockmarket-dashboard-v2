@@ -44,6 +44,10 @@ const props = defineProps({
         type: Number,
         default: 500,
     },
+    yAxisData: {
+        type: Array,
+        default: [],
+    },
 });
 
 const labelRight = {
@@ -59,7 +63,7 @@ const seriesData = computed(() => {
         .sort((a, b) => a.value - b.value)
         .map((item) => ({
             value: item.value,
-            label: item.value >= 0 ? labelRight : labelLeft,
+            // label: item.value >= 0 ? labelRight : labelLeft,
             itemStyle: {
                 color: item.value >= 0 ? '#00b050' : '#ff0000'
             }
@@ -72,7 +76,31 @@ const xAxisData = computed(() => {
         .map((item) => item.name);
 });
 
+
+
 const getOption = function (seriesData, xAxisData, chartTitle) {
+
+    const yAxisOption = () => {
+        if (props.yAxisData.length > 0) {
+            return {
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                data: props.yAxisData
+            };
+
+        }
+        return {
+            type: 'category',
+            axisLine: {show: false},
+            axisLabel: {show: false},
+            axisTick: {show: false},
+            splitLine: {show: false},
+            data: xAxisData
+        };
+    };
+
     console.log(seriesData, xAxisData, chartTitle);
     return {
         title: {
@@ -91,7 +119,9 @@ const getOption = function (seriesData, xAxisData, chartTitle) {
         },
         grid: {
             top: 80,
-            bottom: 30
+            bottom: 30,
+            left:200,
+            right:10
         },
         xAxis: {
             type: 'value',
@@ -102,21 +132,14 @@ const getOption = function (seriesData, xAxisData, chartTitle) {
                 }
             }
         },
-        yAxis: {
-            type: 'category',
-            axisLine: {show: false},
-            axisLabel: {show: false},
-            axisTick: {show: false},
-            splitLine: {show: false},
-            data: xAxisData
-        },
+        yAxis:yAxisOption(),
         series: [
             {
                 name: 'Cost',
                 type: 'bar',
                 stack: 'Total',
                 label: {
-                    show: true,
+                    show: false ,
                     formatter: '{b}'
                 },
                 data: seriesData,

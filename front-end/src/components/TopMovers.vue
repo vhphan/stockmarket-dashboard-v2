@@ -78,7 +78,6 @@ const pagination = {
                     row-key="Symbol"
                     :columns="columns"
                     bordered
-                    dark
                     :pagination="pagination"
             />
         </div>
@@ -92,7 +91,6 @@ const pagination = {
                     row-key="Symbol"
                     :columns="columns"
                     bordered
-                    dark
                     :pagination="pagination"
                     style="margin-left: 1px;"
             />

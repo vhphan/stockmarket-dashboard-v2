@@ -29,6 +29,7 @@ router.get('/getBarsMultipleSymbols', fifteenMinutesCache, asyncHandler(alpacaCo
 router.get('/getMajorIndexes', fifteenMinutesCache, asyncHandler(alpacaController.getMajorIndexes));
 router.get('/getAssetInfo', fifteenMinutesCache, asyncHandler(alpacaController.getAssetInfo));
 router.get('/getActiveAssets', oneDayCache, asyncHandler(alpacaController.getActiveAssets));
+router.get('/getNewsSentiment', oneHourCache, asyncHandler(alphaVantageController.getNewsSentiment));
 
 router.get('/getTopGainers', fifteenMinutesCache, asyncHandler(scraperController.getTopGainers));
 router.get('/getTopLosers', fifteenMinutesCache, asyncHandler(scraperController.getTopLosers));
@@ -37,6 +38,8 @@ router.get('/getMarketNews', fifteenMinutesCache, asyncHandler(finnhubController
 router.get('/getStockSymbols', fifteenMinutesCache, asyncHandler(finnhubController.getStockSymbols));
 router.get('/getCompanyProfile', fifteenMinutesCache, asyncHandler(finnhubController.getCompanyProfile));
 router.get('/getStockQuote', fifteenMinutesCache, asyncHandler(finnhubController.getStockQuote));
+router.get('/getRecommendationTrends', fifteenMinutesCache, asyncHandler(finnhubController.getRecommendationTrends));
+
 
 router.get('/getIntraDayPrices', oneHourCache, asyncHandler(alphaVantageController.getIntraDayPrices));
 router.get('/getBarsMultipleSymbols', oneHourCache, asyncHandler(alpacaController.getBarsMultipleSymbols));

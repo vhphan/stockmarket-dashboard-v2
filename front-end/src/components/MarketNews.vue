@@ -85,7 +85,6 @@ onMounted(() => {
             row-key="ID"
             :loading="isLoading"
             wrap-cells
-            dark
             title="Latest market news related to market indices SPY, DIA, QQQ, and IWM."
     >
         <template v-slot:body-cell-URL="props">

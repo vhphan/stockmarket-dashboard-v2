@@ -60,7 +60,17 @@ const getStockQuote = async (req, res) => {
     res.json({
             data: {...data, symbol},
             success: true,
+        }
+    );
+}
 
+const getRecommendationTrends = async (req, res) => {
+    const symbol = req.query.symbol;
+    const finnhubClient = global.__finnhubClient;
+    const data = await promisify(finnhubClient.recommendationTrends.bind(finnhubClient))(symbol);
+    res.json({
+            data,
+            success: true,
         }
     );
 }
@@ -73,4 +83,5 @@ module.exports = {
     getStockSymbols,
     getCompanyProfile,
     getStockQuote,
+    getRecommendationTrends,
 }

@@ -14,6 +14,7 @@ const apiArray = symbols.map((symbol) => {
 });
 
 const quoteData = ref([]);
+const yAxisData = ref([]);
 
 const {
     isFetchingArray,
@@ -24,7 +25,7 @@ const {
 } = useApiArray(apiArray, () => {
 
     quoteData.value = [];
-
+    yAxisData.value = [];
     symbols.forEach((symbol, index) => {
         const data = dataArray[index].value.data;
         const pcChangeTillNow = (100 * (data.c - data.o) / data.o);
@@ -34,6 +35,10 @@ const {
                 name: `${symbol}(${etfList[symbol]})`,
                 value: pcChangeTillNow,
             }
+        ];
+        yAxisData.value = [
+            ...yAxisData.value,
+            etfList[symbol],
         ];
     });
 });
@@ -57,6 +62,7 @@ onMounted(() => {
             v-if="executed"
             :chart-data="quoteData"
             :height-in-pixels="501"
+            :y-axis-data="yAxisData"
     />
 </template>
 

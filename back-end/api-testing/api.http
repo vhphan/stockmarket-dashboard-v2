@@ -35,3 +35,9 @@ GET http://localhost:3005/api/v1/getNews
 
 ###
 GET http://localhost:3005/api/v1/getNews?symbols[]=SPY&symbols[]=XLE
+
+###
+GET http://localhost:3005/api/v1/getRecommendationTrends?symbol=IWM
+
+###
+GET http://localhost:3005/api/v1/getNewsSentiment?tickers=MSFT

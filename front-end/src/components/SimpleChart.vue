@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 
 import LWChart from './LWChart.vue';
+import {storeToRefs} from "pinia";
+import {useMainStore} from "@/store/mainStore.js";
 
 // define props called data where data is list of object with keys time, value
 
@@ -14,10 +16,12 @@ const props = defineProps({
 const chartOptions = ref({
 
 });
+
 const seriesOptions = ref({
     color: props.color || 'rgb(45, 77, 205)',
     title: props.title,
 });
+
 const chartType = ref('line');
 const lwChart = ref();
 
@@ -68,8 +72,11 @@ const changeColors = () => {
     seriesOptions.value = options;
 };
 
-
-
+const mainStore = useMainStore();
+const {darkMode} = storeToRefs(mainStore);
+const computedTheme = computed(() => {
+    return darkMode.value ? 'dark' : 'light';
+});
 
 </script>
 
@@ -82,6 +89,7 @@ const changeColors = () => {
                 :chart-options="chartOptions"
                 :series-options="seriesOptions"
                 ref="lwChart"
+                :theme="computedTheme"
         />
     </div>
     <button type="button" @click="changeColors">Set Random Colors</button>
