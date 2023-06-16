@@ -1,0 +1,7 @@
+alpaca-py
+ta
+jupyter
+python-dotenv
+loguru
+yfinance
+
