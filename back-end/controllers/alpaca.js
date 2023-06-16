@@ -72,7 +72,7 @@ const init = async function () {
             logger.info('Successfully initialized alpaca api');
         }
 
-        if (!global.__clock || !global.__calendar){
+        if (!global.__clock || !global.__calendar) {
             await updateAlpacaData();
         }
 
@@ -243,17 +243,23 @@ const getLatestQuotes = async (req, res) => {
         data,
         success: true,
     });
-}
+};
 
 const getNews = async (req, res) => {
     const {symbols} = req.query;
+    const includeContent = req.query['includeContent'] === 'true';
     const alpaca = global.__alpaca;
-    const data = symbols === undefined? (await alpaca.getNews({totalLimit: 20})) : (await alpaca.getNews({symbols}));
+    const newsParams = symbols === undefined ? {totalLimit: 20} : {
+        symbols,
+        include_content: includeContent,
+        totalLimit: 20};
+    const data = await alpaca.getNews(newsParams);
     res.json({
         data,
         success: true,
     });
-}
+
+};
 
 module.exports = {
     init,

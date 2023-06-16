@@ -18,7 +18,9 @@ class MyFetch {
 
             onFetchError(ctx) {
                 // ctx.data can be null when 5xx response
-                console.error(ctx);
+                if (ctx){
+                    console.log(ctx);
+                }
                 return ctx;
             },
 

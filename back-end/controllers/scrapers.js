@@ -2,7 +2,13 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 async function scraperYahooFinance(url) {
-    const html = await axios.get(url);
+    const html = await axios.get(url,
+        {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
+            }
+        }
+    );
     const cheerio = require('cheerio');
     const $ = cheerio.load(html.data);
     const results = [];
@@ -16,7 +22,7 @@ async function scraperYahooFinance(url) {
                 // use aria label as key
                 const key = $(td).attr('aria-label');
                 // use inner text as value
-            result[key] = $(td).text();
+                result[key] = $(td).text();
             }
         );
         results.push(result);
@@ -42,10 +48,10 @@ const getTopLosers = async (req, res) => {
         success: true,
         time: new Date(),
     });
-}
+};
 
 module.exports = {
     scraperYahooFinance,
     getTopGainers,
     getTopLosers,
-}
+};

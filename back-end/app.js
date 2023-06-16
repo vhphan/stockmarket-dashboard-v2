@@ -12,9 +12,10 @@ global.__isDev = process.env.NODE_ENV === 'development';
 
 const baseUrl = '/api';
 app.use(cors());
-app.use(errorHandler);
 
 app.use(`${baseUrl}/v1`, logRequest, require('#src/routes/main'));
+
+app.use(errorHandler);
 
 const port = process.env.PORT || 3005;
 const server = app.listen(port, function () {

@@ -22,6 +22,9 @@ const {
     execute,
 } = useApiArray(apiArray, () => {
     console.log('executing');
+    if (dataArray[0].value === null) {
+        return;
+    }
     marketNews.value = dataArray[0].value.data;
 });
 

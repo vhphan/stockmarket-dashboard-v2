@@ -17,11 +17,13 @@ Accept: application/json
 GET http://localhost:3005/api/v1/getCompanyProfile?symbol=AAPL
 Accept: application/json
 
-
 ###
 GET http://localhost:3005/api/v1/getTopLosers
 Accept: application/json
 
+###
+GET http://localhost:3005/api/v1/getTopGainers
+Accept: application/json
 
 ###
 GET http://localhost:3005/api/v1/getBarsMultipleSymbols?symbols[]=SPY&symbols[]=XLE&symbols[]=XLF&symbols[]=XLV&symbols[]=XLI&symbols[]=XLB&symbols[]=XLY&symbols[]=XLP&symbols[]=XLRE&symbols[]=XLK&symbols[]=XLC&symbols[]=XLU&symbols[]=XOP&symbols[]=XME&symbols[]=XHB&symbols[]=XRT&symbols[]=XBI&symbols[]=IBB&symbols[]=SMH&numberOfDays=30&timeFrame=1Day
@@ -34,7 +36,7 @@ GET http://localhost:3005/api/v1/getLatestQuotes?symbols[]=SPY&symbols[]=XLE
 GET http://localhost:3005/api/v1/getNews
 
 ###
-GET http://localhost:3005/api/v1/getNews?symbols[]=SPY&symbols[]=XLE
+GET http://localhost:3005/api/v1/getNews?symbols[]=SPY&symbols[]=XLE&includeContent=true
 
 ###
 GET http://localhost:3005/api/v1/getRecommendationTrends?symbol=IWM

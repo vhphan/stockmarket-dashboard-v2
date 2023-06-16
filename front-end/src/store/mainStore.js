@@ -12,8 +12,9 @@ export const useMainStore = defineStore({
         darkMode: useLocalStorage('darkMode', true),
     }),
     actions: {
+
         saveIntraDayData(data) {
-            if (!data.success) {
+            if (!data || !data.success) {
                 return;
             }
             const symbol = data.data['Meta Data']['2. Symbol'];
@@ -24,18 +25,13 @@ export const useMainStore = defineStore({
                 ...timeSeries[key],
             }));
         },
+
         saveIntraDayDataArray(dataArray) {
             dataArray.forEach(data => this.saveIntraDayData(data.value));
         },
-        saveTopGainers(data) {
-            if (!data.success) {
-                return;
-            }
-            this.topGainers.value = data.data;
-        },
 
         saveApiDataToState(data, stateName) {
-            if (!data.success) {
+            if (!data || !data.success) {
                 return;
             }
             this[stateName] = data.data;

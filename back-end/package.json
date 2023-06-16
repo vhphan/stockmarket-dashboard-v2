@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "backend-dev": "cross-env NODE_ENV=development nodemon --ignore 'data/*' app.js"
+    "backend-dev": "cross-env NODE_ENV=development nodemon --ignore 'data/*' app.js",
+    "sandbox": "node ./sockets/news.js"
   },
   "author": "",
   "license": "ISC",
